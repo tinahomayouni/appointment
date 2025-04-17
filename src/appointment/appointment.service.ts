@@ -16,7 +16,12 @@ export class AppointmentService {
 
   async create(createDto: CreateAppointmentDto) {
     let room: RoomDocument | null = null;
-    if (createDto.type === 'CALL') {
+    if (createDto.type === 0) {
+      room = await this.roomModel.create({
+        participants: [createDto.doctor, createDto.patient],
+      });
+    }
+    if (createDto.type === 1) {
       room = await this.roomModel.create({
         participants: [createDto.doctor, createDto.patient],
       });

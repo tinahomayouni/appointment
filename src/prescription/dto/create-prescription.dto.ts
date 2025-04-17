@@ -20,4 +20,8 @@ export class CreatePrescriptionDto {
   @IsString()
   @IsNotEmpty()
   dosage: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  date: Date;
 }

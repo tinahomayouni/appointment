@@ -1,16 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { Patient } from './patient.schema';
 import { CreatePatientDto } from './dto/create.patient.dto';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class PatientService {
-  create(createPatientDto: CreatePatientDto) {
-    const patient = new Patient();
-    patient.name = createPatientDto.name || '';
-    patient.phone = createPatientDto.phone || '';
-    patient.email = createPatientDto.email || '';
-    patient.gender = createPatientDto.gender || 'other';
-    patient.dateOfBirth = createPatientDto.dateOfBirth || new Date();
-    return patient;
+  constructor(
+    @InjectModel(Patient.name) private readonly patient: Model<Patient>,
+  ) {}
+  async create(createPatientDto: CreatePatientDto) {
+    const patient = new this.patient({
+      name: createPatientDto.name || '',
+      phone: createPatientDto.phone || '',
+      email: createPatientDto.email || '',
+      gender: createPatientDto.gender || '',
+      dateOfBirth: createPatientDto.dateOfBirth || '',
+    });
+    const savedPatient = await patient.save();
+    return savedPatient;
   }
 }

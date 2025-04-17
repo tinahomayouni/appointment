@@ -9,7 +9,20 @@ export class CreateRoomDto {
   name: string;
 
   @ApiProperty()
-  @IsInt()
+  @IsString()
   @IsNotEmpty()
-  capacity: number;
+  participants: string[];
+
+  @ApiProperty()
+  @IsNotEmpty()
+  isActive: boolean;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  startedAt: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  endedAt: Date;
 }

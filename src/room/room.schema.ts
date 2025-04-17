@@ -10,6 +10,9 @@ export class Room {
   isActive: boolean;
 
   @Prop()
+  participants: string[];
+
+  @Prop()
   startedAt?: Date;
 
   @Prop()

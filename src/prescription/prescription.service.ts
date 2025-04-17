@@ -1,16 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePrescriptionDto } from './dto/create-prescription.dto';
 import { Prescription } from './prescription.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class PrescriptionService {
-  create(createPrescriptionDto: CreatePrescriptionDto) {
-    const prescription = new Prescription();
-    prescription.doctor = createPrescriptionDto.doctor;
-    prescription.patient = createPrescriptionDto.patient;
-    prescription.medications = createPrescriptionDto.medications;
-    prescription.dosage = createPrescriptionDto.dosage;
-    prescription.date = new Date();
+  constructor(
+    @InjectModel(Prescription.name)
+    private readonly prescription: Model<Prescription>,
+  ) {}
+  async create(createPrescriptionDto: CreatePrescriptionDto) {
+    const prescription = new this.prescription({
+      doctor: createPrescriptionDto.doctor,
+      patient: createPrescriptionDto.patient,
+      medications: createPrescriptionDto.medications,
+      dosage: createPrescriptionDto.dosage,
+      date: new Date(),
+    });
+
     return prescription;
   }
 }
