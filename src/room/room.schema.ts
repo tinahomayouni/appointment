@@ -16,4 +16,5 @@ export class Room {
   endedAt?: Date;
 }
 
+export type RoomDocument = Room & Document;
 export const RoomSchema = SchemaFactory.createForClass(Room);

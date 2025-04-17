@@ -2,8 +2,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-export type PrescriptionDocument = Prescription & Document;
-
 @Schema({ timestamps: true })
 export class Prescription {
   @Prop({ type: Types.ObjectId, ref: 'Doctor', required: true })
@@ -21,5 +19,5 @@ export class Prescription {
   @Prop({ default: Date.now })
   date: Date;
 }
-
+export type PrescriptionDocument = Prescription & Document;
 export const PrescriptionSchema = SchemaFactory.createForClass(Prescription);

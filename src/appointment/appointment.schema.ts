@@ -2,9 +2,6 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-
-export type AppointmentDocument = Appointment & Document;
-
 @Schema({ timestamps: true })
 export class Appointment {
   @Prop({ type: Types.ObjectId, ref: 'Doctor', required: true })
@@ -25,5 +22,5 @@ export class Appointment {
   @Prop({ enum: ['PENDING', 'CONFIRMED', 'CANCELLED'], default: 'PENDING' })
   status: 'PENDING' | 'CONFIRMED' | 'CANCELLED';
 }
-
+export type AppointmentDocument = Appointment & Document;
 export const AppointmentSchema = SchemaFactory.createForClass(Appointment);
