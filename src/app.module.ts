@@ -9,11 +9,11 @@ import { AppointmentModule } from './appointment/appointment.module';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017/appointment-db'),
+    AppointmentModule,
     DoctorModule,
     PatientModule,
-    RoomModule,
     PrescriptionModule,
-    AppointmentModule,
+    RoomModule,
   ],
 })
 export class AppModule {}

@@ -14,7 +14,7 @@ export class Prescription {
   medications: string[];
 
   @Prop()
-  notes: string;
+  dosage: string;
 
   @Prop({ default: Date.now })
   date: Date;
