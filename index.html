@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.io Test</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const socket = io("http://localhost:3000"); // or 3001 if you used port in gateway
+
+      socket.on("connect", () => {
+        console.log("Connected as:", socket.id);
+
+        socket.emit("startCall", {
+          room: "123",
+          type: 0,
+          doctor: "66485c57fc13ae6b65000001",
+          patient: "66485c57fc13ae6b65000002",
+          date: new Date().toISOString()
+        });
+
+        socket.on("callStarted", (data) => {
+          console.log("Call Started:", data);
+        });
+      });
+    </script>
+  </body>
+</html>

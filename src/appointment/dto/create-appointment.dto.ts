@@ -20,4 +20,8 @@ export class CreateAppointmentDto {
   @ApiProperty({ required: false })
   @IsOptional()
   date?: Date;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  room?: string;
 }

@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { Appointment, AppointmentDocument } from './appointment.schema';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { Room, RoomDocument } from '../room/room.schema';
+import { AppointmentType } from './enum/appointment.enum';
 
 @Injectable()
 export class AppointmentService {
@@ -16,19 +17,18 @@ export class AppointmentService {
 
   async create(createDto: CreateAppointmentDto) {
     let room: RoomDocument | null = null;
+    const generatedRoomName = `room-${Date.now()}`; // or use uuid
+
     if (createDto.type === 0) {
       room = await this.roomModel.create({
+        roomName: generatedRoomName,
         participants: [createDto.doctor, createDto.patient],
       });
     }
-    if (createDto.type === 1) {
-      room = await this.roomModel.create({
-        participants: [createDto.doctor, createDto.patient],
-      });
-    }
+
     return this.appointmentModel.create({
       ...createDto,
-      room: room?.roomName || undefined,
+      room: room,
     });
   }
 }

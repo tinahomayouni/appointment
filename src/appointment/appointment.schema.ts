@@ -10,8 +10,8 @@ export class Appointment {
   @Prop({ type: Types.ObjectId, ref: 'Patient', required: true })
   patient: Types.ObjectId;
 
-  @Prop({ enum: ['TEXT', 'CALL'], required: true })
-  type: 'TEXT' | 'CALL';
+  @Prop({ enum: [0, 1], required: true })
+  type: number;
 
   @Prop()
   date: Date;
