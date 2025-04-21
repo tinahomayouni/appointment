@@ -5,7 +5,6 @@ import { Model } from 'mongoose';
 import { Appointment, AppointmentDocument } from './appointment.schema';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { Room, RoomDocument } from '../room/room.schema';
-import { AppointmentType } from './enum/appointment.enum';
 
 @Injectable()
 export class AppointmentService {
