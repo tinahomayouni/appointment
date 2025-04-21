@@ -21,6 +21,21 @@ export class AppointmentGateway {
     console.log('AppointmentGateway initialized');
   }
 
+  @SubscribeMessage('joinRoom')
+  async handleJoinRoom(client: Socket, roomId: string) {
+    console.log(`Client ${client.id} joined room ${roomId}`);
+    client.join(roomId);
+  }
+  @SubscribeMessage('leaveRoom')
+  handleLeaveRoom(client: Socket, roomId: string) {
+    console.log(`Client ${client.id} left room ${roomId}`);
+    client.leave(roomId);
+  }
+  @SubscribeMessage('senddMessageToRoom')
+  handleSendMessageTo(client: Socket, data: any) {
+    console.log('message received');
+  }
+
   @SubscribeMessage('startCall')
   async handleStartCall(@MessageBody() data: CreateAppointmentDto) {
     const cacheKey = `${data.doctor}-${data.patient}-${new Date(data.date || new Date()).toISOString()}`;
